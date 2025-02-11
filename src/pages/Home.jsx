@@ -11,9 +11,9 @@ function Home() {
   useEffect(() => {
     const scrollToHash = () => {
       const hash = window.location.hash;
-      
+
       if (hash) {
-        const element = document.querySelector(hash); 
+        const element = document.querySelector(hash);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
@@ -68,8 +68,8 @@ function Home() {
       {/* About Section  */}
       <div id="about" className="pt-32">
         <div className="grid grid-cols-1 lg:grid-cols-9">
-          <div className="flex justify- max-h-[450px] lg:col-span-4">
-            <img src={bg_img} alt="Image" className="object-contain w-[90%] bg-gray-700 rounded-xl" />
+          <div className="flex justify-center lg:justify-normal max-h-[450px] lg:col-span-4">
+            <img src={bg_img} alt="Image" className="object-contain lg:w-[90%] bg-gray-700 rounded-xl" />
           </div>
           <div className="flex flex-col gap-5 mt-10 lg:mt-0 lg:col-span-5">
             <h1 className="text-3xl sm:text-4xl font-bold">About Me</h1>
@@ -79,15 +79,13 @@ function Home() {
                 <button
                   key={item}
                   onClick={() => setAboutSelect(item)}
-                  className={`relative text-white p-2 transition hover:scale-105 
-      ${aboutSelect === item ? "after:w-full after:bg-[#FF004F]" : "hover:text-gray-200"}  
-      after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] 
-      after:bg-[#FF004F] after:transition-all after:duration-300 hover:after:w-full`}
+                  className={`relative text-white p-2 transition hover:scale-105 hover:text-gray-200 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-[#FF004F] after:w-0 after:transition-all after:duration-300 ${aboutSelect === item ? "after:w-full" : "hover:after:w-full"}`}
                 >
                   {item.charAt(0).toUpperCase() + item.slice(1)}
                 </button>
               ))}
             </div>
+
 
 
             <div>
@@ -134,27 +132,40 @@ function Home() {
       </div>
 
       {/* My Services  */}
-      <div className="pt-32" id="service">
+      <div className="pt-32 flex flex-col gap-8" id="service">
         <p className="font-bold sm:text-4xl text-3xl">My Services</p>
 
-        <div className="grid grid-cols-3 gap-5 border">
-          <div className="bg-gray-700 p-10 flex flex-col gap-3">
-            <FaGlobe className="text-3xl text-blue-500" />
-            <p className="font-bold text-xl">Frontend Development</p>
-            <p>Crafting responsive, user-friendly interfaces with modern frameworks like React Js , Next Js and Tailwind CSS.</p>
-          </div>
-          <div className="bg-gray-700 p-10 flex flex-col gap-3">
-            <FaCog className="text-3xl text-gray-200" />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
+          <div className="bg-gray-700 p-10 flex flex-col gap-3 rounded-2xl cursor-pointer hover:bg-[#FF004F] hover:-translate-y-2 transition-all duration-300">
+
+            <FaGlobe className="text-3xl text-blue-500 transition-colors duration-300 hover:text-white" />
+            <p className="font-bold text-xl transition-colors duration-300 hover:text-white">Frontend Development</p>
+            <p className="transition-colors duration-300 hover:text-gray-200">
+              Crafting responsive, user-friendly interfaces with modern frameworks like React Js, Next Js, and Tailwind CSS.
+            </p>
+          </div>
+
+          <div className="bg-gray-700 p-10 flex flex-col gap-3 rounded-2xl cursor-pointer hover:bg-[#FF004F] hover:-translate-y-2 transition-all duration-300">
+            <FaCog className="text-3xl text-gray-300" />
             <p className="font-bold text-xl">Backend Development</p>
             <p>Building scalable server-side logic using Node.js, Express.js, and RESTful APIs.</p>
           </div>
-          <div className="bg-gray-700 p-10 flex flex-col gap-3">
-            <FaDatabase className="text-3xl text-gray-200" />
+          <div className="bg-gray-700 p-10 flex flex-col gap-3 rounded-2xl cursor-pointer hover:bg-[#FF004F] hover:-translate-y-2 transition-all duration-300">
+            <FaDatabase className="text-3xl text-cyan-400" />
 
             <p className="font-bold text-xl">Database Management</p>
             <p>Designing and optimizing databases with MongoDB and Firebase for efficient data storage.</p>
           </div>
+        </div>
+      </div>
+
+      {/* Portfolio  */}
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
         </div>
       </div>
 
