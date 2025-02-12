@@ -251,10 +251,10 @@ function Home() {
               </div>
 
               <div className="flex gap-3 text-2xl text-gray-300">
-                <a href="https://www.linkedin.com/in/muhammadhuzaifa8320" target="_blank"><FaLinkedin /></a>
-                <a href="https://x.com/Mhuzaifa8320" target="_blank"><FaXTwitter /></a>
-                <a href="https://www.facebook.com/profile.php?id=61558296560221" target="_blank"><FaFacebook /></a>
-                <a href="https://www.instagram.com/muhammadhuzaifa8320" target="_blank"><FaInstagram /></a>
+                <a href="https://www.linkedin.com/in/muhammadhuzaifa8320" target="_blank" className="hover:scale-125 transition-all duration-300"><FaLinkedin /></a>
+                <a href="https://x.com/Mhuzaifa8320" target="_blank" className="hover:scale-125 transition-all duration-300"><FaXTwitter /></a>
+                <a href="https://www.facebook.com/profile.php?id=61558296560221" target="_blank" className="hover:scale-125 transition-all duration-300"><FaFacebook /></a>
+                <a href="https://www.instagram.com/muhammadhuzaifa8320" target="_blank" className="hover:scale-125 transition-all duration-300"><FaInstagram /></a>
               </div>
               <div>
                 <a href={cv} download className="px-8 inline-block p-2 cursor-pointer bg-[#FF004F] text-white font-semibold rounded-lg transition-all duration-300 hover:bg-[#d4003a] hover:scale-105">Download Cv</a>
