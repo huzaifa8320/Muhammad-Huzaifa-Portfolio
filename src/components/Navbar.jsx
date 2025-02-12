@@ -7,19 +7,17 @@ const Navbar = () => {
 
   // Sync activeLink with the URL hash when the component mounts or hash changes
   useEffect(() => {
-    const currentHash = window.location.hash || "#home"; // Fallback to '#home' if there's no hash
+    const currentHash = window.location.hash || "#home";
     setActiveLink(currentHash);
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  }, []); 
 
   useEffect(() => {
-    // Update the activeLink whenever the hash in the URL changes
     const handleHashChange = () => {
       setActiveLink(window.location.hash);
     };
 
     window.addEventListener("hashchange", handleHashChange);
 
-    // Clean up the event listener
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
     };

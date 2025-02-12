@@ -2,12 +2,23 @@ import Navbar from "../components/Navbar";
 import bg_img from "../assets/img/edit.png"
 import cv from "../assets/cv/Muhammad Huzaifa Web & App Developer.pdf"
 import { Typewriter } from "react-simple-typewriter";
-import { useEffect, useState } from "react";
-import { FaCog, FaDatabase, FaGlobe } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLinkedin, FaPhone, FaPhoneSquare } from "react-icons/fa";
+import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 function Home() {
   const [aboutSelect, setAboutSelect] = useState('skills')
+  const [showButton, setShowButton] = useState(false);
 
+  const [error, setError] = useState("");
+
+
+  // Use Ref 
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const messageRef = useRef(null);
+
+  // Scroll Smooth 
   useEffect(() => {
     const scrollToHash = () => {
       const hash = window.location.hash;
@@ -23,13 +34,48 @@ function Home() {
     scrollToHash();
   }, []);
 
+
+// Go Top Icon 
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowButton(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
+
+
+  // Submit Handle 
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    const formData = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      message: messageRef.current.value,
+    };
+
+
+    // Validation check 
+    if (!formData.name || !formData.email || !formData.message) {
+      setError("All fields are required!");
+      setTimeout(() => {
+        setError('')
+      }, 2000);
+
+      return;
+    }
+
+    console.log("Form Data:", formData);
+  };
+
   return (
     // Main 
     <div id="home" className="px-5 md:px-10 lg:px-28 container mx-auto">
 
       {/* Navbar  */}
       <Navbar />
-
 
       {/* Hero Section  */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 -4">
@@ -52,9 +98,14 @@ function Home() {
               </span>
             </p>
             <p className="font-semibold text-sm">A Full Stack Developer skilled in Tailwind, React Js,Next Js, Node.js, Express, and MongoDB, crafting responsive and high-performance web applications. I specialize in both frontend and backend, delivering seamless user experiences with precision and efficiency. 🚀</p>
-            <div className="mt-5 flex flex-wrap gap-1">
-              <button className="border-4 px-4  p-2 cursor-pointer bg-white text-black font-semibold rounded-4xl">Contact</button>
-              <a href={cv} download className="border-4 px-4  p-2 cursor-pointer bg-white text-black font-semibold rounded-4xl">Download Cv</a>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <button className="px-4 p-2 cursor-pointer bg-white text-black font-semibold rounded-4xl transition-all duration-300 hover:bg-gray-200 hover:scale-105">
+                Contact
+              </button>
+
+              <a href={cv} download className="px-4 items-center flex p-2 cursor-pointer bg-[#FF004F] text-white font-semibold rounded-4xl transition-all duration-300 hover:bg-[#d4003a] hover:scale-105">
+                Download CV
+              </a>
             </div>
           </div>
         </div>
@@ -135,7 +186,7 @@ function Home() {
       <div className="pt-32 flex flex-col gap-8" id="service">
         <p className="font-bold sm:text-4xl text-3xl">My Services</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
 
           <div className="bg-gray-700 p-10 flex flex-col gap-3 rounded-2xl cursor-pointer hover:bg-[#FF004F] hover:-translate-y-2 transition-all duration-300">
 
@@ -161,14 +212,79 @@ function Home() {
       </div>
 
       {/* Portfolio  */}
-      <div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
+      <div className="pt-32 flex flex-col gap-8" id="portfolio">
+        <p className="font-bold sm:text-4xl text-3xl">My Work</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+          <div className="">
+            <img src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/08/Empire-Flippers-an-online-business-marketplace.webp" alt="" className="w-full h-full rounded-2xl" />
+          </div>
+
+          <div className="">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX-B_eVeOO9Y_l7_WQ5zjElkckYhXeyIDugg&s" alt="" className="w-full h-full rounded-2xl" />
+          </div>
+
+          <div className="">
+            <img src="https://media.licdn.com/dms/image/v2/D4D12AQErV5S_buj95w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1662363673907?e=2147483647&v=beta&t=0u1vNV0sNmfPbJmGXn23IWZDTapb49vqUlisG5PJhDk" alt="" className="w-full h-full rounded-2xl" />
+          </div>
         </div>
       </div>
 
+      {/* Contact  */}
+      <div className="pt-32 flex flex-col" id="contact">
+        <div className="grid grid-cols-1 md:grid-cols-9 gap-10">
+          <div className="gap-10 flex flex-col col-span-4">
+            <p className="font-bold sm:text-4xl text-3xl">Contact Me</p>
+            <div className="text-[#FF004F] flex flex-col gap-8">
+
+              <div className="flex items-center">
+                <a href="mailto:muhammadhuzaifa8320@gmail.com" className="gap-2 inline-flex items-center">
+                  <FaEnvelope className="text-xl" />
+                  <span className="text-gray-300">muhammadhuzaifa8320@gmail.com</span>
+                </a>
+              </div>
+
+              <div className="flex items-center">
+                <a href="tel:+923135909715" className="inline-flex items-center gap-2">
+                  <FaPhoneSquare className="text-xl" />
+                  <span className="text-gray-300">+923135909715</span>
+                </a>
+              </div>
+
+              <div className="flex gap-3 text-2xl text-gray-300">
+                <a href="https://www.linkedin.com/in/muhammadhuzaifa8320" target="_blank"><FaLinkedin /></a>
+                <a href="https://x.com/Mhuzaifa8320" target="_blank"><FaXTwitter /></a>
+                <a href="https://www.facebook.com/profile.php?id=61558296560221" target="_blank"><FaFacebook /></a>
+                <a href="https://www.instagram.com/muhammadhuzaifa8320" target="_blank"><FaInstagram /></a>
+              </div>
+              <div>
+                <a href={cv} download className="px-8 inline-block p-2 cursor-pointer bg-[#FF004F] text-white font-semibold rounded-lg transition-all duration-300 hover:bg-[#d4003a] hover:scale-105">Download Cv</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <input ref={nameRef} type="text" className="bg-gray-700 p-2.5 transition-all duration-500 focus:ps-5 outline-none rounded-lg" placeholder="Your Name" />
+              <input ref={emailRef} type="email" className="bg-gray-700 p-2.5 transition-all duration-500 focus:ps-5 outline-none rounded-lg" placeholder="Your Email" />
+              <textarea ref={messageRef} rows={6} className="bg-gray-700 p-2.5 resize-none transition-all duration-500 focus:ps-5 outline-none rounded-lg" placeholder="Your Message" ></textarea>
+              {error && <p className="text-[#FF004F]">{error}</p>}
+              <div>
+                <button type="submit" className="p-2 w-40 rounded-lg bg-[#FF004F] transition-all duration-300 hover:bg-[#d4003a] hover:scale-105 cursor-pointer">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Go to Top  */}
+      {showButton &&
+        <a href="#home" className="fixed z-10 bottom-0 right-0 m-5 sm:m-10 p-4 rounded-full bg-[#FF004F] text-xl"><FaArrowUp /></a>
+      }
+
+      {/* Footer  */}
+      <div className="text-center right-0 bg-gray-700 text-gray-300 font-semibold absolute p-5 mt-16 w-full">
+        <p>©{new Date().getFullYear()} Muhammad Huzaifa💖 All rights reserved.</p>
+      </div>
 
     </div>
 
