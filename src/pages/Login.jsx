@@ -6,7 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+const Login = () => {
+  
 
   const [loginLoading, setLoginLoading] = useState(false)
   const { user, setUser, updateToken } = useContext(AuthContext);
@@ -118,7 +119,7 @@ function Login() {
         </p>
       </Card>
     </div>
-  );
-};
+  )
+}
 
 export default Login;
