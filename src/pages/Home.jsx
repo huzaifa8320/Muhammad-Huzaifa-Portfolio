@@ -9,8 +9,10 @@ import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 function Home() {
   const [aboutSelect, setAboutSelect] = useState('skills')
   const [showButton, setShowButton] = useState(false);
-
   const [error, setError] = useState("");
+
+
+  
 
 
   // Use Ref 
@@ -35,7 +37,7 @@ function Home() {
   }, []);
 
 
-// Go Top Icon 
+  // Go Top Icon 
   useEffect(() => {
     const handleScroll = () => {
       setShowButton(window.scrollY > 100);
@@ -67,7 +69,6 @@ function Home() {
       return;
     }
 
-    console.log("Form Data:", formData);
   };
 
   return (
@@ -99,9 +100,9 @@ function Home() {
             </p>
             <p className="font-semibold text-sm">A Full Stack Developer skilled in Tailwind, React Js,Next Js, Node.js, Express, and MongoDB, crafting responsive and high-performance web applications. I specialize in both frontend and backend, delivering seamless user experiences with precision and efficiency. 🚀</p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <button className="px-4 p-2 cursor-pointer bg-white text-black font-semibold rounded-4xl transition-all duration-300 hover:bg-gray-200 hover:scale-105">
+              <a href="#contact" className="px-4 p-2 cursor-pointer bg-white text-black font-semibold rounded-4xl transition-all duration-300 hover:bg-gray-200 hover:scale-105">
                 Contact
-              </button>
+              </a>
 
               <a href={cv} download className="px-4 items-center flex p-2 cursor-pointer bg-[#FF004F] text-white font-semibold rounded-4xl transition-all duration-300 hover:bg-[#d4003a] hover:scale-105">
                 Download CV
@@ -211,23 +212,51 @@ function Home() {
         </div>
       </div>
 
-      {/* Portfolio  */}
+      {/* Portfolio */}
       <div className="pt-32 flex flex-col gap-8" id="portfolio">
         <p className="font-bold sm:text-4xl text-3xl">My Work</p>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-          <div className="">
-            <img src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/08/Empire-Flippers-an-online-business-marketplace.webp" alt="" className="w-full h-full rounded-2xl" />
+          {/* Work Item */}
+          <div className="relative group cursor-pointer overflow-hidden rounded-2xl">
+            <img
+              src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/08/Empire-Flippers-an-online-business-marketplace.webp"
+              alt=""
+              className="w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
+            />
+            {/* Hover Effect with Red Gradient */}
+            <div className="absolute rounded-2xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+              <p className="text-lg font-semibold">Project Name</p>
+              <p className="text-sm mt-2">This is a short project description.</p>
+            </div>
           </div>
 
-          <div className="">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX-B_eVeOO9Y_l7_WQ5zjElkckYhXeyIDugg&s" alt="" className="w-full h-full rounded-2xl" />
+          <div className="relative group cursor-pointer overflow-hidden rounded-2xl">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX-B_eVeOO9Y_l7_WQ5zjElkckYhXeyIDugg&s"
+              alt=""
+              className="w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute rounded-2xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+              <p className="text-lg font-semibold">Project Name</p>
+              <p className="text-sm mt-2">This is a short project description.</p>
+            </div>
           </div>
 
-          <div className="">
-            <img src="https://media.licdn.com/dms/image/v2/D4D12AQErV5S_buj95w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1662363673907?e=2147483647&v=beta&t=0u1vNV0sNmfPbJmGXn23IWZDTapb49vqUlisG5PJhDk" alt="" className="w-full h-full rounded-2xl" />
+          <div className="relative group cursor-pointer overflow-hidden rounded-2xl">
+            <img
+              src="https://media.licdn.com/dms/image/v2/D4D12AQErV5S_buj95w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1662363673907?e=2147483647&v=beta&t=0u1vNV0sNmfPbJmGXn23IWZDTapb49vqUlisG5PJhDk"
+              alt=""
+              className="w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute rounded-2xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+              <p className="text-lg font-semibold">Project Name</p>
+              <p className="text-sm mt-2">This is a short project description.</p>
+            </div>
           </div>
         </div>
       </div>
+
+
 
       {/* Contact  */}
       <div className="pt-32 flex flex-col" id="contact">

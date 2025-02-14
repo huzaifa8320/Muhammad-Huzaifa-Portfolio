@@ -6,16 +6,21 @@ import Navbar from './components/Navbar'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Admin from './pages/Admin'
+import Login from './pages/login'
+import AuthContextProvider from './context/AuthContext'
 
 function App() {
 
   return (
+    <AuthContextProvider>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/admin' element={<Admin />} />
+        <Route path='/admin/dashboard' element={<Admin />} />
+        <Route path='/admin/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
+    </AuthContextProvider>
   )
 }
 
