@@ -1,5 +1,5 @@
 import { Form, Input, Button, Card, notification } from "antd";
-import logo from '../assets/img/tab_logo.png'
+import logo from '../../assets/img/tab_logo.png'
 import { loginUser } from "../../api/auth/api";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
