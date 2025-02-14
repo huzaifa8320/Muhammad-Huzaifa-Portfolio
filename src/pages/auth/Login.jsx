@@ -1,14 +1,13 @@
 import { Form, Input, Button, Card, notification } from "antd";
 import logo from '../assets/img/tab_logo.png'
-import { loginUser } from "../api/auth/api";
+import { loginUser } from "../../api/auth/api";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+function Login() {
   
-
   const [loginLoading, setLoginLoading] = useState(false)
   const { user, setUser, updateToken } = useContext(AuthContext);
 

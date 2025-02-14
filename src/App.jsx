@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Admin from './pages/Admin'
 import AuthContextProvider from './context/AuthContext'
-import Login from './pages/login'
+import Login from './pages/auth/login'
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/admin/dashboard' element={<Admin />} />
-        <Route path='/admin/login' element={<Login/>} />
+        <Route path='/admin/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
     </AuthContextProvider>
