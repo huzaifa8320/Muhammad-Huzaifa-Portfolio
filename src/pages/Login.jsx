@@ -20,7 +20,7 @@ const Login = () => {
       description: description,
       placement: "topRight",
     });
-  };
+  }
 
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Login = () => {
         }
       }
     }
-  }, [user]);
+  }, [user])
 
 
   const onFinish = async (values) => {
@@ -59,7 +59,7 @@ const Login = () => {
         }
         setLoginLoading(false)
       })
-  };
+  }
 
   return (
     <div className="flex justify-center p-8 items-center min-h-screen bg-[#080808]">
