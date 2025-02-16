@@ -16,3 +16,8 @@ body{
 html {
   scroll-behavior: smooth;
 }
+
+/* Change Color Afte Select */
+.custom-menu .ant-menu-item-selected {
+  background-color: #FF004F !important; /* Change active item color to red */
+}

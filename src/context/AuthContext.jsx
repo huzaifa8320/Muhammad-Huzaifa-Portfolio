@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { message } from "antd";
+import { message, notification } from "antd";
 import { AppRoutes } from "../constant/Constant";
 
 export const AuthContext = createContext();
@@ -9,6 +9,10 @@ export const AuthContext = createContext();
 export default function AuthContextProvider({ children }) {
     const [user, setUser] = useState('null');
     const [token, setToken] = useState(Cookies.get("token") || null);
+
+    const openNotification = (type, message, description) => {
+        notification[type]({ message, description, placement: "topRight" });
+    };
 
     const getUser = async () => {
         await axios.get(AppRoutes.getMyInfo, {
@@ -21,6 +25,7 @@ export default function AuthContextProvider({ children }) {
             })
             .catch((err) => {
                 console.log(err)
+                openNotification("error", "Error", "Something Went Wrong!");
             });
     };
     useEffect(() => {

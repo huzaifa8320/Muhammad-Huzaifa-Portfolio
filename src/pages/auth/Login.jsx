@@ -1,10 +1,10 @@
 import { Form, Input, Button, Card, notification } from "antd";
-import logo from '../../assets/img/tab_logo.png'
 import { loginUser } from "../../api/auth/api";
-import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import logo from '../../assets/img/tab_logo.png'
+import Cookies from "js-cookie";
 
 function Login() {
   
@@ -18,7 +18,7 @@ function Login() {
       message: message,
       description: description,
       placement: "topRight",
-    });
+    })
   }
 
 
@@ -26,10 +26,10 @@ function Login() {
     if (user) {
       if (user != 'null') {
         if (user?.role == "user") {
-          openNotification("error", "Access Denied", "You are Not Admin!");
+          openNotification("error", "Access Denied", "You are Not Admin!")
         }
         else if (user?.role == "admin") {          
-          navigate("/admin/dashboard");
+          navigate("/admin/dashboard")
         }
       }
     }

@@ -1,24 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import Admin from './pages/Admin'
-import AuthContextProvider from './context/AuthContext'
+import Home from './pages/home/Home'
+import Admin from './pages/admin/Admin'
 import Login from './pages/auth/Login'
+import AuthContextProvider from './context/AuthContext'
 
 function App() {
 
   return (
     <AuthContextProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/admin/dashboard' element={<Admin />} />
-        <Route path='/admin/login' element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/admin/:page' element={<Admin />} />
+          <Route path='/admin/login' element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </AuthContextProvider>
   )
 }

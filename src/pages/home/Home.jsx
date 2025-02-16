@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar";
-import bg_img from "../assets/img/edit.png"
-import cv from "../assets/cv/Muhammad Huzaifa Web & App Developer.pdf"
+import Navbar from "../../components/Navbar";
+import bg_img from "../../assets/img/user.png"
+import cv from "../../assets/cv/Muhammad Huzaifa Web & App Developer.pdf"
 import { Typewriter } from "react-simple-typewriter";
 import { useEffect, useRef, useState } from "react";
 import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLinkedin, FaPhone, FaPhoneSquare } from "react-icons/fa";
