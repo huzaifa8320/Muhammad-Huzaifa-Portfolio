@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [isAddingProj, setIsAddingProj] = useState(false)
-  const [isGettingProj , setIsGettingProj] = useState(true)
+  const [isGettingProj, setIsGettingProj] = useState(true)
   const [form] = Form.useForm();
 
 
@@ -22,6 +22,7 @@ const Dashboard = () => {
     try {
       const data = await getProjects();
       setProjects(data?.data);
+
       setIsGettingProj(false)
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -58,35 +59,56 @@ const Dashboard = () => {
       image: uploadedImageUrl,
     };
 
-    try {
-      await addProject(newProject);
-      setFileList([]);
-      form.resetFields();
-      setIsAddingProj(false)
-      setIsModalVisible(false);
-      openNotification("success", "Success", "Project added successfully!");
-      fetchProjects(); // Refresh project list after adding
-    } catch (err) {
-      console.error(err);
-      openNotification("error", "Error", "Failed to add project");
-      setIsAddingProj(false)
-    }
+    await addProject(newProject)
+      .then((res) => {
+        console.log(res)
+        setProjects([...projects, res?.data]);
+        openNotification("success", "Success", "Project added successfully!");
+        setIsAddingProj(false)
+        setFileList([]);
+        setIsModalVisible(false);
+        form.resetFields();
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err?.msg == "Access Denied: No Token Provided") {
+          openNotification("error", "Token", "You have No token!");
+        }
+        else if (err?.msg == "Please Use Another Title") {
+          openNotification("error", "Title", "Please Use Another Title");
+        }
+        else {
+          openNotification("error", "Error", "Failed to add project");
+        }
+        setIsAddingProj(false)
+      })
   };
 
-  const handleDelete =async (_id) => {
+  const handleDelete = async (_id) => {
     console.log("Deleting project with ID:", _id);
     await deleteProject(_id)
-    .then((res)=>{
-      console.log(res)
-      setProjects(projects.filter((project) => project._id !== _id));
-      openNotification("warning", "Deleted", "Project has been deleted!");
-    })
-    .catch((err)=>{
-      console.log(err)
-      openNotification("error", "Error", "Failed to delete project");
-    })
+      .then((res) => {
+        console.log(res)
+        setProjects(projects.filter((project) => project._id !== _id));
+        openNotification("warning", "Deleted", "Project has been deleted!");
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err?.msg == "Access Denied: No Token Provided") {
+          openNotification("error", "Token", "You have No token!");
+        }
+        else if (err?.msg == "Project not found") {
+          openNotification("error", "Not Found", "Project not found!");
+        }
+        else if (err?.msg == "Project ID is required") {
+          openNotification("error", "Id", "Project ID is required");
+        }
+        else {
+          openNotification("error", "Error", "Failed to delete project");
+        }
+      })
   };
-  
+
   const columns = [
     {
       title: "Image",
@@ -112,7 +134,7 @@ const Dashboard = () => {
       ),
     },
   ];
-  
+
 
   return (
     <div className="p-6 bg-white rounded-xl shadow-lg">
@@ -131,7 +153,7 @@ const Dashboard = () => {
       </div>
 
       <Table
-      loading={isGettingProj}
+        loading={isGettingProj}
         pagination={{ pageSize: 5 }}
         scroll={{ x: "100%" }}
         dataSource={projects}

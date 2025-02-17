@@ -1,15 +1,22 @@
 import axios from "axios";
 import { AppRoutes } from "../../constant/Constant";
+import Cookies from "js-cookie";
 
 
 export const addProject = async (projectData) => {
     try {
-        const response = await axios.post(AppRoutes.addProject, projectData);
+        const response = await axios.post(AppRoutes.addProject, projectData, {
+            headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`,
+            },
+        }
+        );
         return response.data; // Return API response
     }
     catch (error) {
         console.error("Add Project Error:", error.response?.data || error.message);
-        return null;
+        throw (error.response?.data);
+        // return error.response?.data;
     }
 };
 
@@ -28,7 +35,11 @@ export const getProjects = async () => {
 
 export const deleteProject = async (_id) => {
     try {
-        const response = await axios.delete(`${AppRoutes.deleteProject}/${_id}`);
+        const response = await axios.delete(`${AppRoutes.deleteProject}/${_id}` , {
+            headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`,
+            },
+        });
         return response.data; // Return API response
     }
     catch (error) {

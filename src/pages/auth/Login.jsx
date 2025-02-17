@@ -3,7 +3,6 @@ import { loginUser } from "../../api/auth/api";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import logo from '../../assets/img/tab_logo.png'
 import Cookies from "js-cookie";
 
 function Login() {
@@ -65,7 +64,7 @@ function Login() {
       <Card className="w-[400px] p-8 rounded-2xl border-none bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-md shadow-2xl">
         <div className="flex justify-center mb-4">
           <img
-            src={logo}
+            src="https://res.cloudinary.com/deoqroxyy/image/upload/v1739786651/tab_logo_ajvhrb.png"
             alt="Logo"
             className="rounded-full w-28 h-28  border-[#FF004F] shadow-lg"
           />

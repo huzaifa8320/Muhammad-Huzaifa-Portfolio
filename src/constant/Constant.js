@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.VITE_PRODURL;
+export const BASE_URL = process.env.VITE_DEVURL;
 
 export const AppRoutes = {
     login: BASE_URL + 'login',
