@@ -1,5 +1,5 @@
-import { use, useContext, useState } from "react";
-import { Card, Avatar, Button, Input, Upload, message, Typography } from "antd";
+import {  useContext, useState } from "react";
+import { Card, Button, Input, Upload, message, Typography } from "antd";
 import { UploadOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../../context/AuthContext";
 
@@ -14,7 +14,7 @@ const AdminProfile = () => {
         role: "Super Admin",
         phone: "+123 456 7890",
         location: "New York, USA",
-        avatar: "https://i.pravatar.cc/150?img=50", // Random Avatar
+        avatar: "https://res.cloudinary.com/deoqroxyy/image/upload/v1739883452/User_image_vypcci.png", // Random Avatar
     });
 
     const handleEditToggle = () => setEditMode(!editMode);
@@ -36,13 +36,22 @@ const AdminProfile = () => {
             <Card className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-2/4 p-8 shadow-lg rounded-xl bg-[#364153] border border-gray-600">
                 {/* Profile Header */}
                 <div className="flex flex-col items-center">
-                    <Avatar size={110} src={userData.avatar} className="border-4 border-gray-400 shadow-md" />
+                    <div className="w-[110px] h-[110px] border-gray-400 shadow-md rounded-full overflow-hidden">
+                        <img
+                            src={userData.avatar}
+                            alt="User Avatar"
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+
                     <Upload showUploadList={false} customRequest={handleUpload}>
-                        <Button type="primary" icon={<UploadOutlined />} className="mt-3 !bg-[#FF004F] hover:!bg-[#d4003a] text-white">
+                        <div className="mt-3 bg-[#FF004F] hover:bg-[#d4003a] text-white py-2 px-4 rounded-md cursor-pointer flex items-center">
+                            <UploadOutlined className="mr-2" />
                             Change Avatar
-                        </Button>
+                        </div>
                     </Upload>
                 </div>
+
 
                 {/* Profile Details */}
                 <div className="mt-8">

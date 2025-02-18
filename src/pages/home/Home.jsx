@@ -1,19 +1,42 @@
 import Navbar from "../../components/Navbar";
-import bg_img from "../../assets/img/user.png"
 import cv from "../../assets/cv/Muhammad Huzaifa Web & App Developer.pdf"
 import { Typewriter } from "react-simple-typewriter";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLinkedin, FaPhone, FaPhoneSquare } from "react-icons/fa";
+import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLink, FaLinkedin, FaPhone, FaPhoneSquare } from "react-icons/fa";
 import { FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { getProjects } from "../../api/projects/project";
 
 function Home() {
   const [aboutSelect, setAboutSelect] = useState('skills')
   const [showButton, setShowButton] = useState(false);
   const [error, setError] = useState("");
+  const [projects, setProjects] = useState([])
 
 
-  
+  // Fetch projects when component mounts
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
+  const fetchProjects = async () => {
+    try {
+      const data = await getProjects();
+      setProjects(data?.data);
+      //  console.log(data?.data);
+      //  console.log(projects);
+
+
+      //  setIsGettingProj(false)
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      //  setIsGettingProj(false)
+    }
+  };
+
+  console.log("projects", projects);
+
+
+  getProjects()
 
   // Use Ref 
   const nameRef = useRef(null);
@@ -113,7 +136,7 @@ function Home() {
 
         {/* Image Section */}
         <div className="h-[450px] flex justify-center lg:justify-end">
-          <img src={bg_img} alt="Background" className="h-full bg-fixed object-contain rounded-xl" />
+          <img src="https://res.cloudinary.com/deoqroxyy/image/upload/v1739883452/User_image_vypcci.png" alt="Background" className="h-full bg-fixed object-contain rounded-xl" />
         </div>
       </div>
 
@@ -121,7 +144,7 @@ function Home() {
       <div id="about" className="pt-32">
         <div className="grid grid-cols-1 lg:grid-cols-9">
           <div className="flex justify-center lg:justify-normal max-h-[450px] lg:col-span-4">
-            <img src={bg_img} alt="Image" className="object-contain lg:w-[90%] bg-gray-700 rounded-xl" />
+            <img src="https://res.cloudinary.com/deoqroxyy/image/upload/v1739883452/User_image_vypcci.png" alt="Image" className="object-contain lg:w-[90%] bg-gray-700 rounded-xl" />
           </div>
           <div className="flex flex-col gap-5 mt-10 lg:mt-0 lg:col-span-5">
             <h1 className="text-3xl sm:text-4xl font-bold">About Me</h1>
@@ -215,45 +238,35 @@ function Home() {
       {/* Portfolio */}
       <div className="pt-32 flex flex-col gap-8" id="portfolio">
         <p className="font-bold sm:text-4xl text-3xl">My Work</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-          {/* Work Item */}
-          <div className="relative group cursor-pointer overflow-hidden rounded-2xl">
-            <img
-              src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2018/08/Empire-Flippers-an-online-business-marketplace.webp"
-              alt=""
-              className="w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
-            />
-            {/* Hover Effect with Red Gradient */}
-            <div className="absolute rounded-2xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-              <p className="text-lg font-semibold">Project Name</p>
-              <p className="text-sm mt-2">This is a short project description.</p>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-10">
+  {projects.map((project) => (
+    <div
+      key={project.id}
+      className="relative h-[200px] col-span-2 group hover:scale-105 transition-transform duration-300 shadow-white cursor-pointer overflow-hidden rounded-xl"
+    >
+      <img
+        src={project.image}
+        alt={project.title}
+        className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+      />
+      {/* Hover Effect with Red Gradient */}
+      <div className="absolute p-4 rounded-xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+        <p className="text-base font-semibold">{project.title}</p>
+        <p className="text-sm mt-2 text-center">{project.description}</p>
+        {/* Link Icon */}
+        <a 
+          href={project.url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="mt-3 text-white text-lg hover:text-gray-300 transition"
+        >
+          <FaLink />
+        </a>
+      </div>
+    </div>
+  ))}
+</div>
 
-          <div className="relative group cursor-pointer overflow-hidden rounded-2xl">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX-B_eVeOO9Y_l7_WQ5zjElkckYhXeyIDugg&s"
-              alt=""
-              className="w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="absolute rounded-2xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-              <p className="text-lg font-semibold">Project Name</p>
-              <p className="text-sm mt-2">This is a short project description.</p>
-            </div>
-          </div>
-
-          <div className="relative group cursor-pointer overflow-hidden rounded-2xl">
-            <img
-              src="https://media.licdn.com/dms/image/v2/D4D12AQErV5S_buj95w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1662363673907?e=2147483647&v=beta&t=0u1vNV0sNmfPbJmGXn23IWZDTapb49vqUlisG5PJhDk"
-              alt=""
-              className="w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
-            />
-            <div className="absolute rounded-2xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-              <p className="text-lg font-semibold">Project Name</p>
-              <p className="text-sm mt-2">This is a short project description.</p>
-            </div>
-          </div>
-        </div>
       </div>
 
 

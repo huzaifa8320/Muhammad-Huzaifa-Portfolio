@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Upload, Button, Form, Input, Modal, Table, notification } from "antd";
-import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
+import {  PlusOutlined } from "@ant-design/icons";
 import { uploadToCloudinary } from "../../../api/cloudnary/cloudnary";
 import { addProject, deleteProject, getProjects } from "../../../api/projects/project";
 
@@ -57,6 +57,7 @@ const Dashboard = () => {
       title: values.title,
       description: values.description,
       image: uploadedImageUrl,
+      url: values.url
     };
 
     await addProject(newProject)
@@ -114,12 +115,14 @@ const Dashboard = () => {
       title: "Image",
       dataIndex: "image",
       key: "image",
-      render: (image) => (
-        <img
-          src={image}
-          alt="Project"
-          className="w-16 h-16 object-cover rounded-md"
-        />
+      render: (image, record) => (
+        <a href={record.url} target="_blank" rel="noopener noreferrer">
+          <img
+            src={image}
+            alt="Project"
+            className="w-16 h-16 object-cover rounded-md cursor-pointer"
+          />
+        </a>
       ),
     },
     { title: "Title", dataIndex: "title", key: "title" },
@@ -134,6 +137,7 @@ const Dashboard = () => {
       ),
     },
   ];
+  
 
 
   return (
@@ -194,6 +198,13 @@ const Dashboard = () => {
             rules={[{ required: true, message: "Please enter a title" }]}
           >
             <Input placeholder="Enter project title" />
+          </Form.Item>
+          <Form.Item
+            name="url"
+            label="Project Url"
+            rules={[{ required: true, message: "Please enter Project Url" }]}
+          >
+            <Input placeholder="Enter project Url" />
           </Form.Item>
 
           <Form.Item
