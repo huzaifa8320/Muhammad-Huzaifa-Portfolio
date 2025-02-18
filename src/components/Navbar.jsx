@@ -35,7 +35,7 @@ const Navbar = () => {
   const links = ["#home", "#about", "#service", "#portfolio", "#contact"];
 
   return (
-    <nav className="z-10 py-5 sticky top-0 bg-[#080808]">
+    <nav className="z-10 px-5 md:px-10 lg:px-28 w-full py-5 right-0 fixed top-0 bg-[#080808]">
       <div className="w-full flex gap-3 items-center">
         {/* Logo and Name */}
         <div className="text-white text-2xl font-bold flex items-center">
