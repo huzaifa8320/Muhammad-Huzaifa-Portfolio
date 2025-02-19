@@ -2,7 +2,7 @@ import Navbar from "../../components/Navbar";
 import cv from "../../assets/cv/Muhammad Huzaifa Web & App Developer.pdf"
 import { Typewriter } from "react-simple-typewriter";
 import { useEffect, useRef, useState } from "react";
-import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLink, FaLinkedin, FaPhone, FaPhoneSquare } from "react-icons/fa";
+import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLink, FaLinkedin, FaPhone, FaPhoneSquare, FaSpinner } from "react-icons/fa";
 import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { getProjects } from "../../api/projects/project";
 
@@ -11,6 +11,7 @@ function Home() {
   const [showButton, setShowButton] = useState(false);
   const [error, setError] = useState("");
   const [projects, setProjects] = useState([])
+  const [gettingProj, setGettingProj] = useState(true)
 
 
 
@@ -23,8 +24,10 @@ function Home() {
     try {
       const data = await getProjects();
       setProjects(data?.data);
+      setGettingProj(false)
     } catch (error) {
       console.error("Error fetching projects:", error);
+      setGettingProj(false)
     }
   };
 
@@ -231,33 +234,41 @@ function Home() {
       <div className="pt-32 flex flex-col gap-8" id="portfolio">
         <p className="font-bold sm:text-4xl text-3xl">My Work</p>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-10">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              tabIndex={0} // Makes div focusable
-              className="relative h-[200px] col-span-2 group hover:scale-105 focus-within:scale-105 transition-transform duration-300 shadow-white cursor-pointer overflow-hidden rounded-xl"
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105 focus-within:scale-105"
-              />
-              {/* Hover & Focus Effect with Red Gradient */}
-              <div className="absolute p-4 rounded-xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 sm: group-focus-within:opacity-100 group-focus-within:translate-y-0">
-                <p className="text-base font-semibold">{project.title}</p>
-                <p className="text-sm mt-2 text-center">{project.description}</p>
-                {/* Link Icon */}
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 text-white text-lg hover:text-gray-300 transition"
-                >
-                  <FaLink />
-                </a>
-              </div>
+          {gettingProj ? (
+            <div>
+
+              <FaSpinner className="animate-spin text-5xl" />
             </div>
-          ))}
+          ) : (
+            projects.map((project) => (
+              <div
+                key={project.id}
+                tabIndex={0} // Makes div focusable
+                className="relative h-[200px] col-span-2 group hover:scale-105 focus-within:scale-105 transition-transform duration-300 shadow-white cursor-pointer overflow-hidden rounded-xl"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105 focus-within:scale-105"
+                />
+                {/* Hover & Focus Effect with Red Gradient */}
+                <div className="absolute p-4 rounded-xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
+                  <p className="text-base font-semibold">{project.title}</p>
+                  <p className="text-sm mt-2 text-center">{project.description}</p>
+                  {/* Link Icon */}
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 text-white text-lg hover:text-gray-300 transition"
+                  >
+                    <FaLink />
+                  </a>
+                </div>
+              </div>
+            ))
+          )}
+
         </div>
       </div>
 
