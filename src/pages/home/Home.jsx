@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { FaArrowUp, FaCog, FaDatabase, FaEnvelope, FaFacebook, FaGlobe, FaLink, FaLinkedin, FaPhone, FaPhoneSquare, FaSpinner } from "react-icons/fa";
 import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { getProjects } from "../../api/projects/project";
+import { sendEmail } from "../../api/email/email";
+import { notification } from "antd";
+import {Button} from "antd";
 
 function Home() {
   const [aboutSelect, setAboutSelect] = useState('skills')
@@ -12,9 +15,12 @@ function Home() {
   const [error, setError] = useState("");
   const [projects, setProjects] = useState([])
   const [gettingProj, setGettingProj] = useState(true)
+  const [sendingMail , setSendingMail] = useState(false)
 
 
-
+  const openNotification = (type, message, description) => {
+    notification[type]({ message, description, placement: "topRight" });
+  };
   // Fetch projects when component mounts
   useEffect(() => {
     fetchProjects();
@@ -66,8 +72,9 @@ function Home() {
 
 
 
-  // Submit Handle 
-  const handleSubmit = (e) => {
+  //Email Submit Handle 
+  const handleSubmit =async (e) => {
+    setSendingMail(true)
     e.preventDefault(); // Prevent page reload
 
     const formData = {
@@ -80,12 +87,31 @@ function Home() {
     // Validation check 
     if (!formData.name || !formData.email || !formData.message) {
       setError("All fields are required!");
+      setSendingMail(false)
       setTimeout(() => {
         setError('')
       }, 2000);
 
       return;
     }
+
+
+  await sendEmail(formData)
+    .then((res) => {
+      console.log(res);
+      nameRef.current.value = "";
+      emailRef.current.value = "";
+      messageRef.current.value = "";
+      openNotification("success", "Success", "Your Request sent successfully We will Response you Soon!");
+      setSendingMail(false)
+    })
+    .catch((err) => {
+      console.log(err);
+      openNotification("error", "Error", "Failed to send email!");
+      setSendingMail(false)
+    });
+
+  
 
   };
 
@@ -314,7 +340,17 @@ function Home() {
               <textarea ref={messageRef} rows={6} className="bg-gray-700 p-2.5 resize-none transition-all duration-500 focus:ps-5 outline-none rounded-lg" placeholder="Your Message" ></textarea>
               {error && <p className="text-[#FF004F]">{error}</p>}
               <div>
-                <button type="submit" className="p-2 w-40 rounded-lg bg-[#FF004F] transition-all duration-300 hover:bg-[#d4003a] hover:scale-105 cursor-pointer">Submit</button>
+
+<Button 
+  type="default"
+  size="large"
+  loading={sendingMail}
+  onClick={handleSubmit}
+  className="!p-2 !w-40 !text-white !rounded-lg !bg-[#FF004F] transition-all duration-300 hover:!bg-[#d4003a] hover:scale-105"
+>
+  Submit
+</Button>
+
               </div>
             </form>
           </div>
