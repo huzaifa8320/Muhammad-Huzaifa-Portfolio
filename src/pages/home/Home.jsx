@@ -7,7 +7,7 @@ import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { getProjects } from "../../api/projects/project";
 import { sendEmail } from "../../api/email/email";
 import { notification } from "antd";
-import {Button} from "antd";
+import { Button } from "antd";
 
 function Home() {
   const [aboutSelect, setAboutSelect] = useState('skills')
@@ -15,7 +15,7 @@ function Home() {
   const [error, setError] = useState("");
   const [projects, setProjects] = useState([])
   const [gettingProj, setGettingProj] = useState(true)
-  const [sendingMail , setSendingMail] = useState(false)
+  const [sendingMail, setSendingMail] = useState(false)
 
 
   const openNotification = (type, message, description) => {
@@ -73,7 +73,7 @@ function Home() {
 
 
   //Email Submit Handle 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     setSendingMail(true)
     e.preventDefault(); // Prevent page reload
 
@@ -96,22 +96,22 @@ function Home() {
     }
 
 
-  await sendEmail(formData)
-    .then((res) => {
-      console.log(res);
-      nameRef.current.value = "";
-      emailRef.current.value = "";
-      messageRef.current.value = "";
-      openNotification("success", "Success", "Your Request sent successfully We will Response you Soon!");
-      setSendingMail(false)
-    })
-    .catch((err) => {
-      console.log(err);
-      openNotification("error", "Error", "Failed to send email!");
-      setSendingMail(false)
-    });
+    await sendEmail(formData)
+      .then((res) => {
+        console.log(res);
+        nameRef.current.value = "";
+        emailRef.current.value = "";
+        messageRef.current.value = "";
+        openNotification("success", "Success", "Your Request sent successfully We will Response you Soon!");
+        setSendingMail(false)
+      })
+      .catch((err) => {
+        console.log(err);
+        openNotification("error", "Error", "Failed to send email!");
+        setSendingMail(false)
+      });
 
-  
+
 
   };
 
@@ -269,17 +269,16 @@ function Home() {
             projects.map((project) => (
               <div
                 key={project.id}
-                tabIndex={0} // Makes div focusable
-                className="relative h-[200px] col-span-2 group hover:scale-105 focus-within:scale-105 transition-transform duration-300 shadow-white cursor-pointer overflow-hidden rounded-xl"
+                className="relative h-[200px] col-span-2 group hover:scale-105  transition-transform duration-300 shadow-white cursor-pointer overflow-hidden rounded-xl"
               >
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105 focus-within:scale-105"
+                  className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
                 />
-                {/* Hover & Focus Effect with Red Gradient */}
-                <div className="absolute p-4 rounded-xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0">
-                  <p className="text-base font-semibold">{project.title}</p>
+                {/* Hover Effect with Red Gradient */}
+                <div className="absolute p-4 rounded-xl inset-0 bg-gradient-to-t from-red-700 to-gray-900/10 flex flex-col items-center justify-center text-white opacity-0 translate-y-full transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                  <p className="text-base font-semibold text-center">{project.title}</p>
                   <p className="text-sm mt-2 text-center">{project.description}</p>
                   {/* Link Icon */}
                   <a
@@ -341,15 +340,15 @@ function Home() {
               {error && <p className="text-[#FF004F]">{error}</p>}
               <div>
 
-<Button 
-  type="default"
-  size="large"
-  loading={sendingMail}
-  onClick={handleSubmit}
-  className="!p-2 !w-40 !text-white !rounded-lg !bg-[#FF004F] transition-all duration-300 hover:!bg-[#d4003a] hover:scale-105"
->
-  Submit
-</Button>
+                <Button
+                  type="default"
+                  size="large"
+                  loading={sendingMail}
+                  onClick={handleSubmit}
+                  className="!p-2 !w-40 !text-white !rounded-lg !bg-[#FF004F] transition-all duration-300 hover:!bg-[#d4003a] hover:scale-105"
+                >
+                  Submit
+                </Button>
 
               </div>
             </form>
